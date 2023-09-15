@@ -1,20 +1,23 @@
-﻿Console.WriteLine("Welcome to THE MATH GAME!");
+﻿using System.Reflection.PortableExecutable;
+
+Console.WriteLine("Welcome to THE MATH GAME!");
 Console.WriteLine("Please choose your option:");
 Console.WriteLine("1 - Addition");
 Console.WriteLine("2 - Subtraction");
 Console.WriteLine("3 - Multiplication");
 Console.WriteLine("4 - Division");
-Console.WriteLine("5 - Show previous games");
+Console.WriteLine("5 - Random Operations");
+Console.WriteLine("6 - Show previous games");
 
 List<string> previousGames = new List<string>();
 string difficulty = string.Empty;
-int numberOfQuestions = 0;
+int numberOfQuestions;
 
 do
 {
-    Console.Write("Your option (1-5): ");
+    Console.Write("Your option (1-6): ");
     string option = Console.ReadLine();
-    if (option != "5")
+    if (option != "6")
     {
         difficulty = GetDifficultyLevel();
         numberOfQuestions = GetNumberOfQuestions();
@@ -48,12 +51,17 @@ do
                 }
             case "5":
                 {
+                    RandomOperations();
+                    break;
+                }
+            case "6":
+                {
                     ShowPreviousGames();
                     break;
                 }
             default:
                 {
-                    Console.WriteLine("Please select an available option: 1-5");
+                    Console.WriteLine("Please select an available option: 1-6");
                     break;
                 }
         }
@@ -215,11 +223,18 @@ void Division()
     AddGameToList(numbers, result);
 }
 
-void AddGameToList(int[] numbers, int result)
+void RandomOperations()
 {
-    string game;
-    game = numbers[0] + " + " + numbers[1] + " = " + result;
-    previousGames.Add(game);
+    Random random = new Random();
+    int operationNumber = random.Next(4);
+    if (operationNumber == 0)
+        Addition();
+    else if (operationNumber == 1)
+        Subtraction();
+    else if (operationNumber == 2)
+        Multiplication();
+    else if (operationNumber == 3)
+        Division();
 }
 
 void ShowPreviousGames()
@@ -234,4 +249,11 @@ void ShowPreviousGames()
             Console.WriteLine($"Game #{++counter}: {game}");
         }
     }
+}
+
+void AddGameToList(int[] numbers, int result)
+{
+    string game;
+    game = numbers[0] + " + " + numbers[1] + " = " + result;
+    previousGames.Add(game);
 }
