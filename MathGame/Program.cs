@@ -170,6 +170,7 @@ void Addition()
 {
     int result;
     int[] numbers = GetRandomNumbers();
+    bool correctAnswer;
 
     Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine($"Question: {numbers[0]} + {numbers[1]} = ?");
@@ -183,22 +184,25 @@ void Addition()
     {
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("Correct!");
+        correctAnswer = true;
     }
     else
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("That's not right!");
+        correctAnswer = false;
     }
 
     Console.ForegroundColor = ConsoleColor.Gray;
     Console.WriteLine();
-    AddGameToList(numbers, result);
+    AddGameToList(numbers, result, correctAnswer, "+");
 }
 
 void Subtraction()
 {
     int result;
     int[] numbers = GetRandomNumbers();
+    bool correctAnswer;
 
     Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine($"Question: {numbers[0]} - {numbers[1]} = ?");
@@ -212,22 +216,25 @@ void Subtraction()
     {
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("Correct!");
+        correctAnswer = true;
     }
     else
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("That's not right!");
+        correctAnswer = false;
     }
 
     Console.ForegroundColor = ConsoleColor.Gray;
     Console.WriteLine();
-    AddGameToList(numbers, result);
+    AddGameToList(numbers, result, correctAnswer, "-");
 }
 
 void Multiplication()
 {
     int result;
     int[] numbers = GetRandomNumbers();
+    bool correctAnswer;
 
     Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine($"Question: {numbers[0]} * {numbers[1]} = ?");
@@ -241,22 +248,25 @@ void Multiplication()
     {
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("Correct!");
+        correctAnswer = true;
     }
     else
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("That's not right!");
+        correctAnswer = false;
     }
 
     Console.ForegroundColor = ConsoleColor.Gray;
     Console.WriteLine();
-    AddGameToList(numbers, result);
+    AddGameToList(numbers, result, correctAnswer, "*");
 }
 
 void Division()
 {
     int result;
     int[] numbers;
+    bool correctAnswer;
 
     do
     {
@@ -275,16 +285,18 @@ void Division()
     {
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("Correct!");
+        correctAnswer = true;
     }
     else
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("That's not right!");
+        correctAnswer = false;
     }
 
     Console.ForegroundColor = ConsoleColor.Gray;
     Console.WriteLine();
-    AddGameToList(numbers, result);
+    AddGameToList(numbers, result, correctAnswer, "/");
 }
 
 void RandomOperations()
@@ -311,18 +323,23 @@ void ShowPreviousGames()
     }
     else
     {
-        Console.ForegroundColor = ConsoleColor.White;
         foreach (string game in previousGames)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
+            if (game.Substring(game.Length - 5) == "WRONG")
+                Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"Game #{++counter}: {game}");
         }
     }
     Console.ForegroundColor = ConsoleColor.Gray;
 }
 
-void AddGameToList(int[] numbers, int result)
+void AddGameToList(int[] numbers, int result, bool correctAnswer, string operand)
 {
     string game;
-    game = numbers[0] + " + " + numbers[1] + " = " + result;
+    if (correctAnswer)
+        game = numbers[0] + " " + operand + " " + numbers[1] + " = " + result + " -> CORRECT";
+    else
+        game = numbers[0] + " " + operand + " " + numbers[1] + " = " + result + " -> WRONG";
     previousGames.Add(game);
 }
