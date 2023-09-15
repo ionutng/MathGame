@@ -1,4 +1,6 @@
-﻿List<string> previousGames = new List<string>();
+﻿using System.Diagnostics;
+
+List<string> previousGames = new List<string>();
 string difficulty = string.Empty;
 int numberOfQuestions;
 
@@ -30,6 +32,8 @@ do
     }
     else
         numberOfQuestions = 1;
+
+    Stopwatch stopwatch = Stopwatch.StartNew();
 
     for (int i = 0; i < numberOfQuestions; i++)
     {
@@ -73,6 +77,16 @@ do
                     break;
                 }
         }
+    }
+
+    stopwatch.Stop();
+    TimeSpan elapsedTime = stopwatch.Elapsed;
+
+    if (option != "6")
+    {
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"It took you {Math.Round(elapsedTime.TotalSeconds, 2)} seconds to finish answering.");
+        Console.ForegroundColor = ConsoleColor.Gray;
     }
 
     Console.Write("Do you wish to keep playing? (y for yes): ");
