@@ -7,59 +7,66 @@ Console.WriteLine("4 - Division");
 Console.WriteLine("5 - Show previous games");
 
 List<string> previousGames = new List<string>();
+string difficulty = string.Empty;
+int numberOfQuestions = 0;
 
 do
 {
     Console.Write("Your option (1-5): ");
     string option = Console.ReadLine();
-
-    switch (option)
+    if (option != "5")
     {
-        case "1":
-            {
-                Console.WriteLine("You chose addition");
-                Addition();
-                break;
-            }
-        case "2":
-            {
-                Console.WriteLine("You chose Subtraction");
-                Subtraction();
-                break;
-            }
-        case "3":
-            {
-                Console.WriteLine("You chose Multiplication");
-                Multiplication();
-                break;
-            }
-        case "4":
-            {
-                Console.WriteLine("You chose Division");
-                Division();
-                break;
-            }
-        case "5":
-            {
-                Console.WriteLine("You chose to see the previous games");
-                ShowPreviousGames();
-                break;
-            }
-        default:
-            {
-                Console.WriteLine("Please select an available option: 1-5");
-                break;
-            }
+        difficulty = GetDifficultyLevel();
+        numberOfQuestions = GetNumberOfQuestions();
     }
+    else
+        numberOfQuestions = 1;
+
+    for (int i = 0; i < numberOfQuestions; i++)
+    {
+        switch (option)
+        {
+            case "1":
+                {
+                    Addition();
+                    break;
+                }
+            case "2":
+                {
+                    Subtraction();
+                    break;
+                }
+            case "3":
+                {
+                    Multiplication();
+                    break;
+                }
+            case "4":
+                {
+                    Division();
+                    break;
+                }
+            case "5":
+                {
+                    ShowPreviousGames();
+                    break;
+                }
+            default:
+                {
+                    Console.WriteLine("Please select an available option: 1-5");
+                    break;
+                }
+        }
+    }
+
     Console.Write("Do you wish to keep playing? (y for yes): ");
 } while (Console.ReadLine() == "y");
 
 int[] GetRandomNumbers()
 {
-    string difficulty = GetDifficultyLevel();
     int[] numbers = new int[2];
     Random random = new Random();
-    
+
     if (difficulty == "easy")
     {
         numbers[0] = random.Next(10);
@@ -109,6 +116,18 @@ string GetDifficultyLevel()
                 return "";
             }
     }
+}
+
+int GetNumberOfQuestions()
+{
+    int numberOfQuestions;
+
+    do
+    {
+        Console.Write("How many questions would you like to solve? ");
+    } while (!Int32.TryParse(Console.ReadLine(), out numberOfQuestions));
+
+    return numberOfQuestions;
 }
 
 void Addition()
