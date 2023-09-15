@@ -1,22 +1,28 @@
-﻿using System.Reflection.PortableExecutable;
-
-Console.WriteLine("Welcome to THE MATH GAME!");
-Console.WriteLine("Please choose your option:");
-Console.WriteLine("1 - Addition");
-Console.WriteLine("2 - Subtraction");
-Console.WriteLine("3 - Multiplication");
-Console.WriteLine("4 - Division");
-Console.WriteLine("5 - Random Operations");
-Console.WriteLine("6 - Show previous games");
-
-List<string> previousGames = new List<string>();
+﻿List<string> previousGames = new List<string>();
 string difficulty = string.Empty;
 int numberOfQuestions;
 
 do
 {
+    Console.Clear();
+    Console.ForegroundColor = ConsoleColor.Gray;
+    Console.Write("Welcome to ");
+    Console.ForegroundColor = ConsoleColor.Blue;
+    Console.WriteLine("THE MATH GAME!");
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.WriteLine("Please choose your option:");
+    Console.WriteLine("1 - Addition");
+    Console.WriteLine("2 - Subtraction");
+    Console.WriteLine("3 - Multiplication");
+    Console.WriteLine("4 - Division");
+    Console.WriteLine("5 - Random Operations");
+    Console.WriteLine("6 - Show previous games");
+
+    Console.ForegroundColor = ConsoleColor.Magenta;
     Console.Write("Your option (1-6): ");
     string option = Console.ReadLine();
+    Console.WriteLine();
+
     if (option != "6")
     {
         difficulty = GetDifficultyLevel();
@@ -61,7 +67,9 @@ do
                 }
             default:
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Please select an available option: 1-6");
+                    Console.ForegroundColor = ConsoleColor.Gray;
                     break;
                 }
         }
@@ -102,13 +110,16 @@ int[] GetRandomNumbers()
 
 string GetDifficultyLevel()
 {
+    Console.ForegroundColor = ConsoleColor.White;
     Console.WriteLine("What level of difficulty do you want?");
     Console.WriteLine("1 - Easy");
     Console.WriteLine("2 - Medium");
     Console.WriteLine("3 - Hard");
 
+    Console.ForegroundColor = ConsoleColor.Magenta;
     Console.Write("Level: ");
     string difficulty = Console.ReadLine();
+    Console.WriteLine();
 
     switch (difficulty)
     {
@@ -120,7 +131,8 @@ string GetDifficultyLevel()
             return "hard";
         default:
             {
-                Console.WriteLine("Please select a level of difficulty: easy, medium, hard.");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Please select a level of difficulty: 1 for easy, 2 for medium, 3 for hard.");
                 return "";
             }
     }
@@ -132,8 +144,10 @@ int GetNumberOfQuestions()
 
     do
     {
+        Console.ForegroundColor = ConsoleColor.Magenta;
         Console.Write("How many questions would you like to solve? ");
     } while (!Int32.TryParse(Console.ReadLine(), out numberOfQuestions));
+    Console.WriteLine();
 
     return numberOfQuestions;
 }
@@ -143,6 +157,7 @@ void Addition()
     int result;
     int[] numbers = GetRandomNumbers();
 
+    Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine($"Question: {numbers[0]} + {numbers[1]} = ?");
 
     do
@@ -151,10 +166,18 @@ void Addition()
     } while (!Int32.TryParse(Console.ReadLine(), out result));
 
     if (result == numbers[0] + numbers[1])
+    {
+        Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("Correct!");
+    }
     else
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("That's not right!");
+    }
 
+    Console.ForegroundColor = ConsoleColor.Gray;
+    Console.WriteLine();
     AddGameToList(numbers, result);
 }
 
@@ -163,6 +186,7 @@ void Subtraction()
     int result;
     int[] numbers = GetRandomNumbers();
 
+    Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine($"Question: {numbers[0]} - {numbers[1]} = ?");
 
     do
@@ -171,10 +195,18 @@ void Subtraction()
     } while (!Int32.TryParse(Console.ReadLine(), out result));
 
     if (result == numbers[0] - numbers[1])
+    {
+        Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("Correct!");
+    }
     else
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("That's not right!");
+    }
 
+    Console.ForegroundColor = ConsoleColor.Gray;
+    Console.WriteLine();
     AddGameToList(numbers, result);
 }
 
@@ -183,6 +215,7 @@ void Multiplication()
     int result;
     int[] numbers = GetRandomNumbers();
 
+    Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine($"Question: {numbers[0]} * {numbers[1]} = ?");
 
     do
@@ -191,10 +224,18 @@ void Multiplication()
     } while (!Int32.TryParse(Console.ReadLine(), out result));
 
     if (result == numbers[0] * numbers[1])
+    {
+        Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("Correct!");
+    }
     else
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("That's not right!");
+    }
 
+    Console.ForegroundColor = ConsoleColor.Gray;
+    Console.WriteLine();
     AddGameToList(numbers, result);
 }
 
@@ -208,6 +249,7 @@ void Division()
         numbers = GetRandomNumbers();
     } while (numbers[1] == 0 || numbers[0] % numbers[1] != 0);
 
+    Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine($"Question: {numbers[0]} / {numbers[1]} = ?");
 
     do
@@ -216,10 +258,18 @@ void Division()
     } while (!Int32.TryParse(Console.ReadLine(), out result));
 
     if (result == numbers[0] / numbers[1])
+    {
+        Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("Correct!");
+    }
     else
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("That's not right!");
+    }
 
+    Console.ForegroundColor = ConsoleColor.Gray;
+    Console.WriteLine();
     AddGameToList(numbers, result);
 }
 
@@ -241,14 +291,19 @@ void ShowPreviousGames()
 {
     int counter = 0;
     if (previousGames.Count == 0)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("There are no previous games!");
+    }
     else
     {
+        Console.ForegroundColor = ConsoleColor.White;
         foreach (string game in previousGames)
         {
             Console.WriteLine($"Game #{++counter}: {game}");
         }
     }
+    Console.ForegroundColor = ConsoleColor.Gray;
 }
 
 void AddGameToList(int[] numbers, int result)
