@@ -4,10 +4,13 @@ Console.WriteLine("1 - Addition");
 Console.WriteLine("2 - Subtraction");
 Console.WriteLine("3 - Multiplication");
 Console.WriteLine("4 - Division");
+Console.WriteLine("5 - Show previous games");
+
+List<string> previousGames = new List<string>();
 
 do
 {
-    Console.Write("Your option (1-4): ");
+    Console.Write("Your option (1-5): ");
     string option = Console.ReadLine();
 
     switch (option)
@@ -36,9 +39,15 @@ do
                 Division();
                 break;
             }
+        case "5":
+            {
+                Console.WriteLine("You chose to see the previous games");
+                ShowPreviousGames();
+                break;
+            }
         default:
             {
-                Console.WriteLine("Please select an available option: 1-4");
+                Console.WriteLine("Please select an available option: 1-5");
                 break;
             }
     }
@@ -71,6 +80,8 @@ void Addition()
         Console.WriteLine("Correct!");
     else
         Console.WriteLine("That's not right!");
+
+    AddGameToList(numbers, result);
 }
 
 void Subtraction()
@@ -89,6 +100,8 @@ void Subtraction()
         Console.WriteLine("Correct!");
     else
         Console.WriteLine("That's not right!");
+
+    AddGameToList(numbers, result);
 }
 
 void Multiplication()
@@ -107,6 +120,8 @@ void Multiplication()
         Console.WriteLine("Correct!");
     else
         Console.WriteLine("That's not right!");
+
+    AddGameToList(numbers, result);
 }
 
 void Division()
@@ -130,4 +145,27 @@ void Division()
         Console.WriteLine("Correct!");
     else
         Console.WriteLine("That's not right!");
+
+    AddGameToList(numbers, result);
+}
+
+void AddGameToList(int[] numbers, int result)
+{
+    string game;
+    game = numbers[0] + " + " + numbers[1] + " = " + result;
+    previousGames.Add(game);
+}
+
+void ShowPreviousGames()
+{
+    int counter = 0;
+    if (previousGames.Count == 0)
+        Console.WriteLine("There are no previous games!");
+    else
+    {
+        foreach (string game in previousGames)
+        {
+            Console.WriteLine($"Game #{++counter}: {game}");
+        }
+    }
 }
