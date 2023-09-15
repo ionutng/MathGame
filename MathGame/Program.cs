@@ -51,17 +51,64 @@ do
                 break;
             }
     }
-    Console.Write("Do you wish to keep playing? (y/n): ");
+    Console.Write("Do you wish to keep playing? (y for yes): ");
 } while (Console.ReadLine() == "y");
 
 int[] GetRandomNumbers()
 {
+    string difficulty = GetDifficultyLevel();
     int[] numbers = new int[2];
     Random random = new Random();
-    numbers[0] = random.Next(100);
-    numbers[1] = random.Next(100);
+    
+    if (difficulty == "easy")
+    {
+        numbers[0] = random.Next(10);
+        numbers[1] = random.Next(10);
+    }
+    else if (difficulty == "medium")
+    {
+        do
+        {
+            numbers[0] = random.Next(100);
+            numbers[1] = random.Next(100);
+        } while (numbers[0] < 10 || numbers[1] < 10);
+    }
+    else if (difficulty == "hard")
+    {
+        do
+        {
+            numbers[0] = random.Next(1000);
+            numbers[1] = random.Next(1000);
+        } while (numbers[0] < 100 || numbers[1] < 100);
+    }
 
     return numbers;
+}
+
+string GetDifficultyLevel()
+{
+    Console.WriteLine("What level of difficulty do you want?");
+    Console.WriteLine("1 - Easy");
+    Console.WriteLine("2 - Medium");
+    Console.WriteLine("3 - Hard");
+
+    Console.Write("Level: ");
+    string difficulty = Console.ReadLine();
+
+    switch (difficulty)
+    {
+        case "1":
+            return "easy";
+        case "2":
+            return "medium";
+        case "3":
+            return "hard";
+        default:
+            {
+                Console.WriteLine("Please select a level of difficulty: easy, medium, hard.");
+                return "";
+            }
+    }
 }
 
 void Addition()
